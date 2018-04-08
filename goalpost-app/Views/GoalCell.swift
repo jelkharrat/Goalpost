@@ -17,9 +17,9 @@ class GoalCell: UITableViewCell {
     @IBOutlet weak var goalProgressLbl: UILabel!
     
     //when we instantiate we can pass in proper data
-    func configureCell(description: String, type: String, goalProgressAmount: Int) {
+    func configureCell(description: String, type: GoalType, goalProgressAmount: Int) {
         self.goalDescriptionLbl.text = description
-        self.goalTypeLbl.text = type
+        self.goalTypeLbl.text = type.rawValue //enums
         //creates a string instead of Int
         self.goalProgressLbl.text = String(describing: goalProgressAmount)
     }
