@@ -290,9 +290,9 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="Gr4-ab-81t"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="17"/>
+                                <fontDescription key="fontDescription" name="AvenirNext-Bold" family="Avenir Next" pointSize="24"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button"/>
+                                <state key="normal" title="Next"/>
                                 <connections>
                                     <action selector="nextBtnWasPressed:" destination="Wt4-0O-l3E" eventType="touchUpInside" id="1Vm-HY-N39"/>
                                 </connections>
