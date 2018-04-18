@@ -13,6 +13,7 @@
         <array key="AvenirNext.ttc">
             <string>AvenirNext-Bold</string>
             <string>AvenirNext-DemiBold</string>
+            <string>AvenirNext-Heavy</string>
             <string>AvenirNext-Medium</string>
             <string>AvenirNext-Regular</string>
         </array>
@@ -149,18 +150,39 @@
                                                     <color key="textColor" red="0.42745098040000001" green="0.73725490199999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eda-Bo-wxS">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="70"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="GOAL COMPLETE" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kSo-oD-r3z">
+                                                            <rect key="frame" x="56.5" y="15" width="262.5" height="41"/>
+                                                            <fontDescription key="fontDescription" name="AvenirNext-Heavy" family="Avenir Next" pointSize="30"/>
+                                                            <color key="textColor" red="1" green="1" blue="1" alpha="0.80000000000000004" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                    </subviews>
+                                                    <color key="backgroundColor" red="0.91764705882352937" green="0.66274509803921566" blue="0.26666666666666666" alpha="0.75" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <constraints>
+                                                        <constraint firstItem="kSo-oD-r3z" firstAttribute="centerX" secondItem="eda-Bo-wxS" secondAttribute="centerX" id="goQ-dv-2jD"/>
+                                                        <constraint firstItem="kSo-oD-r3z" firstAttribute="centerY" secondItem="eda-Bo-wxS" secondAttribute="centerY" id="nA0-Ih-HFK"/>
+                                                    </constraints>
+                                                </view>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="d71-Jd-H13" firstAttribute="top" secondItem="SqQ-5w-DE0" secondAttribute="top" constant="8" id="03G-wg-c5g"/>
                                                 <constraint firstItem="XLS-Du-Bfo" firstAttribute="leading" secondItem="SqQ-5w-DE0" secondAttribute="leading" constant="10" id="0vV-ME-BuC"/>
+                                                <constraint firstAttribute="trailing" secondItem="eda-Bo-wxS" secondAttribute="trailing" id="C6G-nu-FrP"/>
                                                 <constraint firstAttribute="trailing" secondItem="d71-Jd-H13" secondAttribute="trailing" constant="8" id="Fe1-QR-9Ya"/>
                                                 <constraint firstItem="d71-Jd-H13" firstAttribute="leading" secondItem="XLS-Du-Bfo" secondAttribute="trailing" constant="10" id="KhZ-r0-pWz"/>
                                                 <constraint firstItem="XLS-Du-Bfo" firstAttribute="top" secondItem="SqQ-5w-DE0" secondAttribute="top" id="Rqu-bF-Tml"/>
+                                                <constraint firstItem="eda-Bo-wxS" firstAttribute="leading" secondItem="SqQ-5w-DE0" secondAttribute="leading" id="V2E-tm-Lpp"/>
                                                 <constraint firstAttribute="bottom" secondItem="XLS-Du-Bfo" secondAttribute="bottom" id="aD7-If-10q"/>
+                                                <constraint firstItem="eda-Bo-wxS" firstAttribute="top" secondItem="SqQ-5w-DE0" secondAttribute="top" id="kpO-4v-hCy"/>
                                                 <constraint firstAttribute="bottom" secondItem="d71-Jd-H13" secondAttribute="bottom" constant="8" id="njD-ev-yBQ"/>
+                                                <constraint firstAttribute="bottom" secondItem="eda-Bo-wxS" secondAttribute="bottom" id="x68-eh-qhm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="completionView" destination="eda-Bo-wxS" id="UX6-1u-fZK"/>
                                             <outlet property="goalDescriptionLbl" destination="BlC-Co-hjf" id="uAz-vb-qlF"/>
                                             <outlet property="goalProgressLbl" destination="d71-Jd-H13" id="brK-8Z-qtg"/>
                                             <outlet property="goalTypeLbl" destination="qpu-wW-mnV" id="gdi-s1-nUd"/>
