@@ -49,7 +49,11 @@ class GoalsVC: UIViewController {
     //Called everytime a view appears
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        fetchCoreDataObjects()
+        tableView.reloadData()
+    }
+    
+    func fetchCoreDataObjects() {
         self.fetch { (complete) in
             if complete {
                 if self.goals.count >= 1 {
@@ -59,8 +63,6 @@ class GoalsVC: UIViewController {
                 }
             }
         }
-        
-        tableView.reloadData()
     }
     
     @IBAction func addGoalButtonWasPressed(_ sender: Any) {
@@ -88,11 +90,52 @@ extension GoalsVC : UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    //This just gives permission to edit
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    //style of how to edit. Ours is custom so choose none
+    func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+        return .none
+    }
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let deleteAction = UITableViewRowAction(style: .destructive, title: "DELETE") { (rowAction, indexPath) in
+            self.removeGoal(atIndexPath: indexPath)
+            
+            //Need to fetch data now that it has been changed
+            self.fetchCoreDataObjects()
+            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        
+        deleteAction.backgroundColor =  #colorLiteral(red: 1, green: 0.1491314173, blue: 0, alpha: 1)
+        return [deleteAction]
+    }
+    
+    
 }
 
 
-//fetch goal data and store into an array
 extension GoalsVC {
+    
+    func removeGoal(atIndexPath indexPath: IndexPath ) {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+        
+        //when tap on a cell, it will correspond with which goal you are trying to delete and remove it from the indexpath
+        managedContext.delete(goals[indexPath.row])
+        
+        do{
+       try managedContext.save()
+            print("Successfully removed goal")
+        } catch {
+            debugPrint("COULD NOT REMOVE: \(error.localizedDescription)")
+        }
+    }
+    
+    
+    //fetch goal data and store into an array
     func fetch(completion: @escaping Finished) {
         guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
         
