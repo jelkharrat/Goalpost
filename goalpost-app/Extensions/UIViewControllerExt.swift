@@ -26,6 +26,22 @@ extension UIViewController {
         present(viewControllerToPresent, animated: false, completion: nil)
     }
     
+    //same as presentdetail function but there is reference to the current presented viewcontroller, dismiss it, and upon completion of dismissal well add animation to the new view controller
+    func presentSecondaryDetail(_ viewControllerToPresent: UIViewController) {
+        let transition = CATransition()
+        transition.duration = 0.3
+        transition.type = kCATransitionFade
+        transition.subtype = kCATransitionFromRight
+        
+        //constant to hold current VC
+        guard let presentedVC = presentedViewController else { return }
+        //first dismissung the current VC and then presenting new one so we can dismiss from FinishedGoalsVC to GoalsVC
+        presentedVC.dismiss(animated: false) {
+            self.view.layer.add(transition, forKey: kCATransition)
+            self.present(viewControllerToPresent, animated: false, completion: nil)
+        }
+    }
+    
     func dismissDetail() {
         let transition = CATransition()
         transition.duration = 0.3

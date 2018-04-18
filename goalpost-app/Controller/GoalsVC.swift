@@ -26,6 +26,9 @@
 import UIKit
 import CoreData
 
+//accessible globally. Used for the save function in the FinishedGoalVC
+let appDelegate = UIApplication.shared.delegate as? AppDelegate
+
 
 class GoalsVC: UIViewController {
 

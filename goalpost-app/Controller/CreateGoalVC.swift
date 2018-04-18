@@ -47,7 +47,8 @@ class CreateGoalVC: UIViewController, UITextViewDelegate {
             //Optional, so need to force unwrap
             finishGoalVC.initData(description: goalTextView.text!, type: goalType)
             
-            presentDetail(finishGoalVC)
+            //first dismissung the current VC and then presenting new one so we can dismiss from FinishedGoalsVC to GoalsVC
+            presentingViewController?.presentSecondaryDetail(finishGoalVC)
         }
     }
     
