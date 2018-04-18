@@ -35,6 +35,8 @@ class GoalsVC: UIViewController {
     //Outlets
     @IBOutlet weak var tableView: UITableView!
     
+    //Vars
+    var goals: [Goal] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,6 +45,24 @@ class GoalsVC: UIViewController {
         tableView.isHidden = false
         //let goal = Goal()
     }
+    
+    //Called everytime a view appears
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        self.fetch { (complete) in
+            if complete {
+                if self.goals.count >= 1 {
+                    self.tableView.isHidden = false
+                } else {
+                    self.tableView.isHidden = true
+                }
+            }
+        }
+        
+        tableView.reloadData()
+    }
+    
     @IBAction func addGoalButtonWasPressed(_ sender: Any) {
         guard let createGoalVC = storyboard?.instantiateViewController(withIdentifier: "CreateGoalVC") else { return }
         presentDetail(createGoalVC)
@@ -55,15 +75,39 @@ extension GoalsVC : UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return goals.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         //create a cell, configure it and pass in data, return cell to tableview
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "goalCell") as? GoalCell else { return UITableViewCell() }
-        cell.configureCell(description: "Eat Kale", type: .shortTerm, goalProgressAmount: 2)
+        
+        let goal = goals[indexPath.row]
+        
+        cell.configureCell(goal: goal)
         
         return cell
+    }
+}
+
+
+//fetch goal data and store into an array
+extension GoalsVC {
+    func fetch(completion: @escaping Finished) {
+        guard let managedContext = appDelegate?.persistentContainer.viewContext else { return }
+        
+        //Fetch items of "Goal". Need to tell explicitly type goal with <Goal>
+        let fetchRequest = NSFetchRequest<Goal>(entityName: "Goal")
+        
+        do {
+            //returns to us an array
+           goals = try managedContext.fetch(fetchRequest)
+            completion(true)
+            print("SUCCESSFUL")
+        } catch {
+            debugPrint("COULD NOT FETCH \(error.localizedDescription)")
+            completion(false)
+        }
     }
 }
 
